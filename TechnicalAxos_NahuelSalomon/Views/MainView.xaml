@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TechnicalAxos_NahuelSalomon.Views.MainView"
+             Title="Home">
+    <ScrollView>
+        <VerticalStackLayout Spacing="20" Padding="10">
+
+            <Frame Padding="10" BackgroundColor="Azure">
+                <VerticalStackLayout Spacing="10">
+                    <Label TextColor="Black" VerticalOptions="Center" HorizontalOptions="Center" Text="App ID" TextDecorations="Underline"></Label>
+                    <Label TextColor="Black" VerticalOptions="Center" HorizontalOptions="Center" FontAttributes="Bold" Text="{Binding PackageName}"></Label>
+                </VerticalStackLayout>
+            </Frame>
+
+            <Frame Padding="10" BackgroundColor="Azure">
+                <VerticalStackLayout Spacing="10">
+                    <Label TextColor="Black" VerticalOptions="Center" HorizontalOptions="Center" Text="Selection of image" TextDecorations="Underline"></Label>
+                    <Button Text="Select an image"
+                            HorizontalOptions="Fill" 
+                            Command="{Binding SelectImageCommand}"/>
+                    <Image Source="{Binding SelectedImage}"
+                           VerticalOptions="CenterAndExpand"
+                           HorizontalOptions="CenterAndExpand"
+                           Aspect="AspectFit"/>    
+                </VerticalStackLayout>
+            </Frame>
+
+            <Frame Padding="10" BackgroundColor="Azure">
+                <VerticalStackLayout Spacing="10">
+                    <Label TextColor="Black" VerticalOptions="Center" HorizontalOptions="Center" Text="Contries from endpoint" TextDecorations="Underline"></Label>
+                    <Button Text="Load contries"
+                            HorizontalOptions="Fill" 
+                            Command="{Binding LoadCountriesCommand}"/>
+                    <CollectionView ItemsSource="{Binding Countries}">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <Frame Margin="0,0,0,10" Padding="10" BackgroundColor="Azure">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*"/>
+                                            <RowDefinition Height="*"/>
+                                        </Grid.RowDefinitions>
+
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+
+                                        <Image Grid.Column="0" Grid.Row="0" Grid.RowSpan="2"  Source="{Binding Flags.Png}" HeightRequest="50" WidthRequest="80" />
+                                        <Label Grid.Column="1" Grid.Row="0" TextColor="Black" Text="{Binding Name.Common}" FontSize="16" VerticalOptions="Center" FontAttributes="Bold" />
+                                        <Label Grid.Column="1" Grid.Row="1" TextColor="Black" Text="{Binding FirstContinent}" FontSize="16" VerticalOptions="Center" FontAttributes="Italic" />
+                                    </Grid>
+                                </Frame>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </VerticalStackLayout>
+            </Frame>
+            
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
