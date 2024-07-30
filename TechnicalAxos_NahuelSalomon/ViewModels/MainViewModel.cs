@@ -9,12 +9,16 @@ namespace TechnicalAxos_NahuelSalomon.ViewModels
 {
     public class MainViewModel : INotifyPropertyChanged
     {
-        public MainViewModel()
+
+        private readonly ICountryService _countryService;
+
+        public MainViewModel(ICountryService countryService, bool showPackageName)
         {
-            SetPackageName();
+            PackageName = showPackageName ? AppInfo.Current.PackageName : string.Empty;
             SelectImageCommand = new AsyncRelayCommand(SelectImageAsync);
             LoadCountriesCommand = new AsyncRelayCommand(LoadCountries);
             SelectedImage = AppConstants.DefaultUrlImage;
+            _countryService = countryService;
         }
 
         private string _packageName;
@@ -53,20 +57,12 @@ namespace TechnicalAxos_NahuelSalomon.ViewModels
         public IAsyncRelayCommand SelectImageCommand { private set; get; }
         public IAsyncRelayCommand LoadCountriesCommand { private set; get; }
 
-        public void SetPackageName() 
-        {
-            var dependencyService = DependencyService.Get<IAppInfoService>();
-            PackageName = dependencyService != null ?
-                                DependencyService.Get<IAppInfoService>().GetAppIdentifier() : 
-                                AppConstants.NoInstanceDependencyService;
-        }
-
         private async Task LoadCountries() 
         {
-            Countries = new ObservableCollection<Country>(await new CountryService().GetAllAsync());
+            Countries = new ObservableCollection<Country>(await _countryService.GetAllAsync());
         }
 
-        private async Task SelectImageAsync()
+        public async Task SelectImageAsync()
         {
             try
             {

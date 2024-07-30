@@ -8,7 +8,7 @@ using TechnicalAxos_NahuelSalomon.Models;
 
 namespace TechnicalAxos_NahuelSalomon.Services
 {
-    public class CountryService
+    public class CountryService : ICountryService
     {
         private static readonly HttpClient _client = new HttpClient();
 

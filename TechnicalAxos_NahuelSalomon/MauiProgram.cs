@@ -1,4 +1,7 @@
 ﻿using Microsoft.Extensions.Logging;
+using TechnicalAxos_NahuelSalomon.Services;
+using TechnicalAxos_NahuelSalomon.ViewModels;
+using TechnicalAxos_NahuelSalomon.Views;
 
 namespace TechnicalAxos_NahuelSalomon
 {
@@ -19,6 +22,7 @@ namespace TechnicalAxos_NahuelSalomon
     		builder.Logging.AddDebug();
 #endif
 
+            builder.Services.AddScoped<ICountryService, CountryService>();
             return builder.Build();
         }
     }
